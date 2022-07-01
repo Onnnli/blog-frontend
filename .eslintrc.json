@@ -16,19 +16,31 @@
         "sourceType": "module"
     },
     "plugins": [
-        "react", "prettier"
+        "react", "react-hooks"
     ],
     "rules": {
+        "react/jsx-wrap-multilines": "off",
+        "indent": "off",
+        "react/jsx-indent": "off",
+        "react/no-array-index-key": "off",
+        "react/prop-types": 0,
+        "react/jsx-props-no-spreading": "off",
+        "react/jsx-one-expression-per-line": 0,
         "react/react-in-jsx-scope": "off",
+        "react-hooks/rules-of-hooks": "error",
+        "react-hooks/exhaustive-deps": "warn",
+        "react/function-component-definition": [
+            2,
+            {
+                "namedComponents": "arrow-function",
+                "unnamedComponents": "arrow-function"
+            }
+        ],
         "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
         "no-underscore-dangle": "off",
         "import/prefer-default-export": "off",
         "consistent-return": "off",
         "import/extensions":  "off",
-        "prettier/prettier": ["error", {}, {
-            "usePrettierrc": true,
-            "endOfLine": "auto"
-        }],
         "no-undef": "warn",
         "comma-dangle": [
             "error",
@@ -43,7 +55,8 @@
         "implicit-arrow-linebreak": "off",
         "lines-between-class-members": "off",
         "object-shorthand": "off",
-        "class-methods-use-this": "off"
+        "class-methods-use-this": "off",
+        "object-curly-newline": "off"
     }
 }
 
