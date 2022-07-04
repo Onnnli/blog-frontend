@@ -1,7 +1,7 @@
 import React from 'react';
 import { Skeleton, Comment, Avatar, Typography, Divider } from 'antd';
 
-const CommentsBlock = ({ items, isLoading = true }) => (
+const CommentsBlock = ({ items, isLoading = true, children }) => (
   <Skeleton loading={isLoading} active>
     <div>
       <div>
@@ -16,6 +16,7 @@ const CommentsBlock = ({ items, isLoading = true }) => (
           content={<p>{text}</p>}
         />
       ))}
+      {children}
     </div>
   </Skeleton>
 );

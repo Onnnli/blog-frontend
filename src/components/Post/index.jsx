@@ -64,7 +64,7 @@ const Post = ({
             ))}
           </ul>
         </div>
-        <div style={{ backgroundColor: 'lightblue' }}>{children}</div>
+        <div>{children}</div>
         <ul className={styles.postDetails}>
           <li>
             <EyeOutlined />
