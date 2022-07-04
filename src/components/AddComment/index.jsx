@@ -1,27 +1,36 @@
 import React from 'react';
-import TextField from '@mui/material/TextField';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
+import { Avatar, Comment, Form, Input, Button } from 'antd';
 
-import styles from './AddComment.module.scss';
-
-const AddComment = () => (
-  <div className={styles.root}>
-    <Avatar
-      classes={{ root: styles.avatar }}
-      src="https://mui.com/static/images/avatar/5.jpg"
-    />
-    <div className={styles.form}>
-      <TextField
-        label="Написать комментарий"
-        variant="outlined"
-        maxRows={10}
-        multiline
-        fullWidth
-      />
-      <Button variant="contained">Отправить</Button>
-    </div>
-  </div>
+const Editor = ({ onChange, onSubmit, submitting, value }) => (
+  <>
+    <Form.Item>
+      <Input.TextArea rows={4} onChange={onChange} value={value} />
+    </Form.Item>
+    <Form.Item>
+      <Button
+        htmlType="submit"
+        loading={submitting}
+        onClick={onSubmit}
+        type="primary"
+      >
+        Add Comment
+      </Button>
+    </Form.Item>
+  </>
 );
+
+const AddComment = () => {
+  const onChangeHandler = () => {};
+  const onSubmitHandler = () => {};
+
+  return (
+    <Comment
+      avatar={
+        <Avatar src="https://joeschmoe.io/api/v1/random" alt="Han Solo" />
+      }
+      content={<Editor onChange={onChangeHandler} onSubmit={onSubmitHandler} />}
+    />
+  );
+};
 
 export default AddComment;
