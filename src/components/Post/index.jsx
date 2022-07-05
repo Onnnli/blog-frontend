@@ -7,6 +7,8 @@ import {
 } from '@ant-design/icons';
 import clsx from 'clsx';
 import { Card, Skeleton } from 'antd';
+import { Link, useNavigate } from 'react-router-dom';
+
 import { UserInfo } from '../UserInfo';
 
 import styles from './Post.module.scss';
@@ -20,46 +22,52 @@ const Post = ({
   viewsCount,
   commentsCount,
   tags,
-  children,
   isFullPost,
   isLoading,
   isEditable,
+  children,
 }) => {
+  const navigate = useNavigate();
+
   const onClickRemove = () => {};
 
-  const onClickEdit = () => {};
+  const onClickEdit = () => {
+    navigate(`/post/${_id}/edit`);
+  };
 
   return (
-    <Card
-      style={{ marginBottom: '25px' }}
-      hoverable
-      bordered
-      cover={
-        <img
-          className={clsx(styles.image, { [styles.imageFull]: isFullPost })}
-          src={imageUrl}
-          alt={title}
-        />
-      }
-      actions={
-        isEditable && [
-          <EditOutlined key="edit" onClick={onClickEdit} />,
-          <DeleteOutlined key="delete" onClick={onClickRemove} />,
-        ]
-      }
-    >
-      <Skeleton loading={isLoading} avatar active>
+    <Skeleton loading={isLoading} avatar active>
+      <Card
+        style={{ marginBottom: '25px' }}
+        hoverable
+        bordered
+        cover={
+          imageUrl && (
+            <img
+              className={clsx(styles.image, { [styles.imageFull]: isFullPost })}
+              src={imageUrl}
+              alt={title}
+            />
+          )
+        }
+        actions={
+          isEditable && [
+            <EditOutlined key="edit" onClick={onClickEdit} />,
+            <DeleteOutlined key="delete" onClick={onClickRemove} />,
+          ]
+        }
+      >
         <UserInfo {...user} additionalText={createdAt} />
         <div className={styles.indention}>
           <h2
             className={clsx(styles.title, { [styles.titleFull]: isFullPost })}
           >
-            {isFullPost ? title : <a href={`/posts/${_id}`}>{title}</a>}
+            {isFullPost ? title : <Link to={`/posts/${_id}`}>{title}</Link>}
           </h2>
           <ul className={styles.tags}>
-            {tags.map((name) => (
+            {tags?.map((name) => (
               <li key={name}>
-                <a href={`/tag/${name}`}>#{name}</a>
+                <Link to={`/tag/${name}`}>#{name}</Link>
               </li>
             ))}
           </ul>
@@ -75,8 +83,8 @@ const Post = ({
             <span>{commentsCount}</span>
           </li>
         </ul>
-      </Skeleton>
-    </Card>
+      </Card>
+    </Skeleton>
   );
 };
 

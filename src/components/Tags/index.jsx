@@ -12,7 +12,7 @@ const Tags = ({ items, isLoading = true }) => (
         <Divider />
       </div>
       <List
-        dataSource={items}
+        dataSource={items.length ? items : ['react', 'typescript', 'node']}
         renderItem={(item) => (
           <Typography.Link href={`/tags/${item}`}>
             <List.Item>

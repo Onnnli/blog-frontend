@@ -56,7 +56,9 @@
         "lines-between-class-members": "off",
         "object-shorthand": "off",
         "class-methods-use-this": "off",
-        "object-curly-newline": "off"
+        "object-curly-newline": "off",
+        "no-param-reassign": "off",
+        "operator-linebreak": "off"
     }
 }
 
