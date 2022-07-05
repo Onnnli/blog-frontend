@@ -1,19 +1,15 @@
 import React from 'react';
-import TextField from '@mui/material/TextField';
-import Paper from '@mui/material/Paper';
-import Button from '@mui/material/Button';
+import { Upload, Button, Input } from 'antd';
+import { UploadOutlined } from '@ant-design/icons';
 import SimpleMDE from 'react-simplemde-editor';
 
 import 'easymde/dist/easymde.min.css';
+
 import styles from './AddPost.module.scss';
 
 export const AddPost = () => {
   const imageUrl = '';
   const [value, setValue] = React.useState('');
-
-  const handleChangeFile = () => {};
-
-  const onClickRemoveImage = () => {};
 
   const onChange = React.useCallback((val) => {
     setValue(val);
@@ -34,17 +30,17 @@ export const AddPost = () => {
     []
   );
 
+  const onUploadHandler = ({ file, fileList }) => {
+    if (file.status !== 'uploading') {
+      console.log(file, fileList);
+    }
+  };
+
   return (
-    <Paper style={{ padding: 30 }}>
-      <Button variant="outlined" size="large">
-        Загрузить превью
-      </Button>
-      <input type="file" onChange={handleChangeFile} hidden />
-      {imageUrl && (
-        <Button variant="contained" color="error" onClick={onClickRemoveImage}>
-          Удалить
-        </Button>
-      )}
+    <div style={{ backgroundColor: 'white' }}>
+      <Upload onChange={onUploadHandler} listType="picture">
+        <Button icon={<UploadOutlined />}>Click to Upload</Button>
+      </Upload>
       {imageUrl && (
         <img
           className={styles.image}
@@ -52,20 +48,8 @@ export const AddPost = () => {
           alt="Uploaded"
         />
       )}
-      <br />
-      <br />
-      <TextField
-        classes={{ root: styles.title }}
-        variant="standard"
-        placeholder="Заголовок статьи..."
-        fullWidth
-      />
-      <TextField
-        classes={{ root: styles.tags }}
-        variant="standard"
-        placeholder="Тэги"
-        fullWidth
-      />
+      <Input classes={{ root: styles.title }} placeholder="Article title..." />
+      <Input classes={{ root: styles.tags }} placeholder="Tags" />
       <SimpleMDE
         className={styles.editor}
         value={value}
@@ -73,13 +57,9 @@ export const AddPost = () => {
         options={options}
       />
       <div className={styles.buttons}>
-        <Button size="large" variant="contained">
-          Опубликовать
-        </Button>
-        <a href="/">
-          <Button size="large">Отмена</Button>
-        </a>
+        <Button>Опубликовать</Button>
+        <Button>Отмена</Button>
       </div>
-    </Paper>
+    </div>
   );
 };

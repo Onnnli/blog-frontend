@@ -6,7 +6,7 @@ import Container from '../Layout/Container';
 import styles from './Header.module.scss';
 
 const Header = () => {
-  const isAuth = false;
+  const isAuth = true;
 
   console.log(isAuth);
   return (
