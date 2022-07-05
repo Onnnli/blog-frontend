@@ -16,7 +16,7 @@ export const Home = () => {
   useEffect(() => {
     dispatch(fetchPosts());
     dispatch(fetchTags());
-  });
+  }, []);
 
   const onChange = () => {};
 

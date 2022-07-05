@@ -16,7 +16,7 @@ export const FullPost = () => {
       setPost(res.data);
       setLoading(false);
     });
-  });
+  }, []);
 
   return (
     <>
