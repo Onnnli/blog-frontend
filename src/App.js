@@ -1,15 +1,19 @@
-import { Registration } from './pages';
+import { Routes, Route } from 'react-router-dom';
+
+import { AddPost, FullPost, Home, Login, Registration } from './pages';
 import Layout from './components/Layout';
 
 import 'antd/dist/antd.min.css';
 
 const App = () => (
   <Layout>
-    {/* <Home /> */}
-    {/* <FullPost /> */}
-    {/* <AddPost /> */}
-    {/* <Login /> */}
-    <Registration />
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/registration" element={<Registration />} />
+      <Route path="/post/:id" element={<FullPost />} />
+      <Route path="/add-post" element={<AddPost />} />
+    </Routes>
   </Layout>
 );
 
