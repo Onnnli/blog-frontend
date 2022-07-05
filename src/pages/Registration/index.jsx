@@ -1,25 +1,83 @@
 import React from 'react';
-import Typography from '@mui/material/Typography';
-import TextField from '@mui/material/TextField';
-import Paper from '@mui/material/Paper';
-import Button from '@mui/material/Button';
-import Avatar from '@mui/material/Avatar';
+import { Button, Form, Input } from 'antd';
 
-import styles from './Login.module.scss';
+import styles from './Registration.module.scss';
 
-export const Registration = () => (
-  <Paper classes={{ root: styles.root }}>
-    <Typography classes={{ root: styles.title }} variant="h5">
-      Создание аккаунта
-    </Typography>
-    <div className={styles.avatar}>
-      <Avatar sx={{ width: 100, height: 100 }} />
+export const Registration = () => {
+  const onFinish = (values) => {
+    console.log('Success:', values);
+  };
+
+  const onFinishFailed = (errorInfo) => {
+    console.log('Failed:', errorInfo);
+  };
+  return (
+    <div className={styles.root}>
+      <Form
+        name="basic"
+        labelCol={{
+          span: 8,
+        }}
+        wrapperCol={{
+          span: 16,
+        }}
+        initialValues={{
+          remember: true,
+        }}
+        onFinish={onFinish}
+        onFinishFailed={onFinishFailed}
+        autoComplete="off"
+      >
+        <Form.Item
+          label="full name"
+          name="username"
+          rules={[
+            {
+              required: true,
+              message: 'Please input your username!',
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          label="email"
+          name="email"
+          rules={[
+            {
+              required: true,
+              message: 'Please input your password!',
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          label="password"
+          name="password"
+          rules={[
+            {
+              required: true,
+              message: 'Please input your password!',
+            },
+          ]}
+        >
+          <Input.Password />
+        </Form.Item>
+
+        <Form.Item
+          wrapperCol={{
+            offset: 8,
+            span: 16,
+          }}
+        >
+          <Button type="primary" htmlType="submit">
+            Submit
+          </Button>
+        </Form.Item>
+      </Form>
     </div>
-    <TextField className={styles.field} label="Полное имя" fullWidth />
-    <TextField className={styles.field} label="E-Mail" fullWidth />
-    <TextField className={styles.field} label="Пароль" fullWidth />
-    <Button size="large" variant="contained" fullWidth>
-      Зарегистрироваться
-    </Button>
-  </Paper>
-);
+  );
+};
