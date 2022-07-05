@@ -1,4 +1,4 @@
-import { AddPost } from './pages';
+import { Login } from './pages';
 import Layout from './components/Layout';
 
 import 'antd/dist/antd.min.css';
@@ -7,8 +7,8 @@ const App = () => (
   <Layout>
     {/* <Home /> */}
     {/* <FullPost /> */}
-    <AddPost />
-    {/* <Login /> */}
+    {/* <AddPost /> */}
+    <Login />
     {/* <Registration /> */}
   </Layout>
 );

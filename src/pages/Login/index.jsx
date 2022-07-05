@@ -1,26 +1,50 @@
 import React from 'react';
-import Typography from '@mui/material/Typography';
-import TextField from '@mui/material/TextField';
-import Paper from '@mui/material/Paper';
-import Button from '@mui/material/Button';
+import { Form, Input, Button } from 'antd';
 
 import styles from './Login.module.scss';
 
-export const Login = () => (
-  <Paper classes={{ root: styles.root }}>
-    <Typography classes={{ root: styles.title }} variant="h5">
-      Вход в аккаунт
-    </Typography>
-    <TextField
-      className={styles.field}
-      label="E-Mail"
-      error
-      helperText="Неверно указана почта"
-      fullWidth
-    />
-    <TextField className={styles.field} label="Пароль" fullWidth />
-    <Button size="large" variant="contained" fullWidth>
-      Войти
-    </Button>
-  </Paper>
-);
+export const Login = () => {
+  const onFinish = (values) => {
+    console.log('Success:', values);
+  };
+
+  const onFinishFailed = (errorInfo) => {
+    console.log('Failed:', errorInfo);
+  };
+
+  return (
+    <div className={styles.root}>
+      <Form
+        name="basic"
+        labelCol={{ span: 8 }}
+        wrapperCol={{ span: 16 }}
+        initialValues={{ remember: true }}
+        onFinish={onFinish}
+        onFinishFailed={onFinishFailed}
+        autoComplete="off"
+      >
+        <Form.Item
+          label="Username"
+          name="username"
+          rules={[{ required: true, message: 'Please input your username!' }]}
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          label="Password"
+          name="password"
+          rules={[{ required: true, message: 'Please input your password!' }]}
+        >
+          <Input.Password />
+        </Form.Item>
+
+        <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+          <Button type="primary" htmlType="submit">
+            Submit
+          </Button>
+        </Form.Item>
+      </Form>
+    </div>
+  );
+};
