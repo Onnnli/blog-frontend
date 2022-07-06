@@ -1,15 +1,22 @@
 import React from 'react';
 import { Button, Typography } from 'antd';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Container from '../Layout/Container';
+import { logout, selectIsAuth } from '../../redux/slices/auth';
 
 import styles from './Header.module.scss';
 
 const Header = () => {
-  const isAuth = false;
+  const dispatch = useDispatch();
+  const isAuth = useSelector(selectIsAuth);
 
-  console.log(isAuth);
+  const onLogoutHandler = () => {
+    localStorage.removeItem('token');
+    dispatch(logout());
+  };
+
   return (
     <header className={styles.root}>
       <Container>
@@ -17,13 +24,12 @@ const Header = () => {
           <Link to="/">
             <Typography.Title level={2}>Blog</Typography.Title>
           </Link>
-
           {isAuth ? (
             <div className={styles.buttons}>
               <Link to="/post/create">
                 <Button>Create post</Button>
               </Link>
-              <Button>Logout</Button>
+              <Button onClick={onLogoutHandler}>Logout</Button>
             </div>
           ) : (
             <div className={styles.buttons}>

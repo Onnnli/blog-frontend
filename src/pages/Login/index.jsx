@@ -1,31 +1,45 @@
 import React from 'react';
 import { Form, Input, Button } from 'antd';
+import { useDispatch, useSelector } from 'react-redux';
+import { Navigate } from 'react-router-dom';
+
+import { fetchLogin, selectIsAuth } from '../../redux/slices/auth';
 
 import styles from './Login.module.scss';
 
 export const Login = () => {
-  const onFinish = (values) => {
-    console.log('Success:', values);
+  const dispatch = useDispatch();
+  const isAuth = useSelector(selectIsAuth);
+
+  const onFinish = async (values) => {
+    const { payload } = await dispatch(fetchLogin(values));
+
+    if (payload.token) {
+      localStorage.setItem('token', payload.token);
+    } else {
+      console.log('Something went wrong!');
+    }
   };
 
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo);
   };
 
+  if (isAuth) {
+    return <Navigate to="/" />;
+  }
+
   return (
     <div className={styles.root}>
       <Form
         name="basic"
-        labelCol={{ span: 8 }}
-        wrapperCol={{ span: 16 }}
-        initialValues={{ remember: true }}
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
         autoComplete="off"
       >
         <Form.Item
-          label="Username"
-          name="username"
+          label="Email"
+          name="email"
           rules={[{ required: true, message: 'Please input your username!' }]}
         >
           <Input />
@@ -39,7 +53,7 @@ export const Login = () => {
           <Input.Password />
         </Form.Item>
 
-        <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+        <Form.Item>
           <Button type="primary" htmlType="submit">
             Submit
           </Button>
