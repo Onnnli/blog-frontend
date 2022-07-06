@@ -7,6 +7,7 @@ import { fetchUser } from './redux/slices/auth';
 import Layout from './components/Layout';
 
 import 'antd/dist/antd.min.css';
+import PrivateRoute from './components/routers/PrivateRoute';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -22,7 +23,15 @@ const App = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/registration" element={<Registration />} />
         <Route path="/posts/:id" element={<FullPost />} />
-        <Route path="/add-post" element={<AddPost />} />
+        <Route
+          exact
+          path="/post/create"
+          element={
+            <PrivateRoute>
+              <AddPost />
+            </PrivateRoute>
+          }
+        />
       </Routes>
     </Layout>
   );
