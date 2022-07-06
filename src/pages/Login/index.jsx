@@ -21,22 +21,13 @@ export const Login = () => {
     }
   };
 
-  const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
-  };
-
   if (isAuth) {
     return <Navigate to="/" />;
   }
 
   return (
     <div className={styles.root}>
-      <Form
-        name="basic"
-        onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
-        autoComplete="off"
-      >
+      <Form name="basic" onFinish={onFinish} autoComplete="off">
         <Form.Item
           label="Email"
           name="email"
