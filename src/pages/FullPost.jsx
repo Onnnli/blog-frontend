@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import Post from '../components/Post';
 import AddComment from '../components/AddComment';
@@ -10,6 +11,7 @@ export const FullPost = () => {
   const params = useParams();
   const [post, setPost] = useState();
   const [isLoading, setLoading] = useState(true);
+  const { user } = useSelector((state) => state.auth);
 
   useEffect(() => {
     axios.get(`/posts/${params.id}`).then((res) => {
@@ -20,7 +22,12 @@ export const FullPost = () => {
 
   return (
     <>
-      <Post {...post} isFullPost isEditable isLoading={isLoading}>
+      <Post
+        {...post}
+        isFullPost
+        isEditable={user?._id === post?.user?._id}
+        isLoading={isLoading}
+      >
         <p>{post?.text}</p>
       </Post>
       <CommentsBlock

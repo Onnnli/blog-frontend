@@ -10,6 +10,8 @@ import CommentsBlock from '../components/CommentsBlock';
 export const Home = () => {
   const dispatch = useDispatch();
   const { posts, tags } = useSelector((state) => state.posts);
+  const { user } = useSelector((state) => state.auth);
+
   const postsMemo = useMemo(() => posts.items, [posts]);
   const tagsMemo = useMemo(() => tags.items, [tags]);
 
@@ -29,7 +31,13 @@ export const Home = () => {
               ? [...Array(5)]?.map((_, index) => (
                   <Post key={index} isLoading={posts.isLoading} />
                 ))
-              : postsMemo?.map((post, index) => <Post key={index} {...post} />)}
+              : postsMemo?.map((post, index) => (
+                  <Post
+                    key={index}
+                    {...post}
+                    isEditable={user?._id === post?.user?._id}
+                  />
+                ))}
           </Layout.Content>
           <Sider theme="light">
             <Tags items={tagsMemo} isLoading={tags.isLoading} />
