@@ -15,4 +15,4 @@ jobs:
         - name: install modules
           run: yarn install
         - name: build project
-          run: yarn run start
+          run: yarn run build
