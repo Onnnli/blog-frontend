@@ -37,7 +37,7 @@ const Post = ({
   };
 
   const onClickEdit = () => {
-    navigate(`/post/${_id}/edit`);
+    navigate(`/posts/${_id}/edit`);
   };
 
   return (

@@ -24,6 +24,15 @@ const App = () => {
         <Route path="/registration" element={<Registration />} />
         <Route path="/posts/:id" element={<FullPost />} />
         <Route
+          path="/posts/:id/edit"
+          element={
+            <PrivateRoute>
+              <AddPost isEditing />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
           exact
           path="/post/create"
           element={

@@ -7,16 +7,12 @@ const Uploader = ({ value, onChange }) => {
   const [loading, setLoading] = useState(false);
 
   const handleChange = async (info) => {
-    try {
-      const formData = new FormData();
-      formData.append('image', info.file);
+    const formData = new FormData();
+    formData.append('image', info.file);
 
-      const { data } = await axios.post('/upload', formData);
-      setLoading(false);
-      onChange(data.url);
-    } catch (e) {
-      console.log(e);
-    }
+    const { data } = await axios.post('/upload', formData);
+    setLoading(false);
+    onChange(data.url);
   };
 
   const uploadButton = (

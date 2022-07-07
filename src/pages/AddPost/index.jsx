@@ -1,7 +1,7 @@
-import React, { useMemo, useCallback, useState } from 'react';
+import React, { useMemo, useCallback, useState, useEffect } from 'react';
 import { Button, Input } from 'antd';
 import SimpleMDE from 'react-simplemde-editor';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import Uploader from '../../components/Uploader';
 import axios from '../../axios';
@@ -9,13 +9,24 @@ import axios from '../../axios';
 import 'easymde/dist/easymde.min.css';
 import styles from './AddPost.module.scss';
 
-export const AddPost = () => {
+export const AddPost = ({ isEditing = false }) => {
   const [text, setText] = useState('');
   const [tags, setTags] = useState('');
   const [title, setTitle] = useState('');
   const [imageUrl, setImageUrl] = useState('');
-
   const navigate = useNavigate();
+  const { id } = useParams();
+
+  useEffect(() => {
+    if (isEditing) {
+      axios.get(`/posts/${id}`).then(({ data }) => {
+        setTags(data.tags);
+        setText(data.text);
+        setTitle(data.title);
+        setImageUrl(data.imageUrl);
+      });
+    }
+  }, [isEditing]);
 
   const onChange = useCallback((value) => {
     setText(value);
@@ -30,6 +41,17 @@ export const AddPost = () => {
     });
 
     navigate(`/posts/${data._id}`);
+  };
+
+  const onSaveHandler = async () => {
+    await axios.patch(`/posts/${id}`, {
+      title,
+      tags: tags.split(','),
+      text,
+      imageUrl: imageUrl ? `http://localhost:3003${imageUrl}` : '',
+    });
+
+    navigate(`/posts/${id}`);
   };
 
   const options = useMemo(
@@ -52,11 +74,13 @@ export const AddPost = () => {
       <Uploader value={imageUrl} onChange={setImageUrl} />
       <Input
         classes={{ root: styles.title }}
+        value={title}
         onChange={(e) => setTitle(e.target.value)}
         placeholder="Article title..."
       />
       <Input
         classes={{ root: styles.tags }}
+        value={tags}
         onChange={(e) => setTags(e.target.value)}
         placeholder="Tags"
       />
@@ -67,7 +91,11 @@ export const AddPost = () => {
         options={options}
       />
       <div className={styles.buttons}>
-        <Button onClick={onPublishHandler}>Publish</Button>
+        {isEditing ? (
+          <Button onClick={onSaveHandler}>Save</Button>
+        ) : (
+          <Button onClick={onPublishHandler}>Publish</Button>
+        )}
         <Button>Cancel</Button>
       </div>
     </div>
