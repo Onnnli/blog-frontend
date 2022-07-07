@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import ReactMarkdown from 'react-markdown';
 
 import Post from '../components/Post';
 import AddComment from '../components/AddComment';
@@ -28,7 +29,7 @@ export const FullPost = () => {
         isEditable={user?._id === post?.user?._id}
         isLoading={isLoading}
       >
-        <p>{post?.text}</p>
+        <ReactMarkdown>{post?.text}</ReactMarkdown>
       </Post>
       <CommentsBlock
         items={[
