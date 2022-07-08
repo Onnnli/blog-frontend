@@ -24,11 +24,12 @@
         "react/jsx-indent": "off",
         "react/no-array-index-key": "off",
         "react/prop-types": 0,
+        "no-console": "off",
         "react/jsx-props-no-spreading": "off",
         "react/jsx-one-expression-per-line": 0,
         "react/react-in-jsx-scope": "off",
         "react-hooks/rules-of-hooks": "error",
-        "react-hooks/exhaustive-deps": "warn",
+        "react-hooks/exhaustive-deps": "off",
         "react/function-component-definition": [
             2,
             {
