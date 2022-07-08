@@ -1,11 +1,7 @@
 name: GitHub Actions Demo
-on:
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+on: [push]
 jobs:
-  Explore-GitHub-Actions:
+  init:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -20,3 +16,6 @@ jobs:
           run: yarn install
         - name: build project
           run: yarn run build
+        - name: ESLint Checking
+          if: ${{ always() && (steps.get_file_changes.outputs.files_added || steps.get_file_changes.outputs.files_modified) }}
+          run: yarn eslint --config ./.eslintrc.js --ignore-path ./.eslintignore ${{ steps.get_file_changes.outputs.files_added }} ${{ steps.get_file_changes.outputs.files_modified }} --fix
