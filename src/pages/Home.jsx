@@ -34,6 +34,7 @@ export const Home = () => {
                   <Post
                     key={index}
                     {...post}
+                    commentsCount={post?.comments?.length}
                     isEditable={user?._id === post?.user?._id}
                   />
                 ))}

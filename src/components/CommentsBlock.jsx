@@ -17,8 +17,8 @@ const CommentsBlock = ({ isLoading = true, children }) => {
         {memoComm.map(({ user, text }, index) => (
           <Comment
             key={index}
-            author={<p>{user.fullName}</p>}
-            avatar={<Avatar src={user.avatarUrl} alt={index} />}
+            author={<p>{user?.fullName}</p>}
+            avatar={<Avatar src={user?.avatarUrl} alt={index} />}
             content={<p>{text}</p>}
           />
         ))}

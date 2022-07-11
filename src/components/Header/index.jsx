@@ -6,8 +6,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import Container from '../Layout/Container';
 import { logout, selectIsAuth } from '../../redux/slices/auth';
 
-import styles from './Header.module.scss';
-
 const Header = () => {
   const dispatch = useDispatch();
   const isAuth = useSelector(selectIsAuth);
@@ -18,21 +16,21 @@ const Header = () => {
   };
 
   return (
-    <header className={styles.root}>
+    <header>
       <Container>
-        <div className={styles.inner}>
+        <div>
           <Link to="/">
             <Typography.Title level={2}>Blog</Typography.Title>
           </Link>
           {isAuth ? (
-            <div className={styles.buttons}>
+            <div>
               <Link to="/post/create">
                 <Button>Create post</Button>
               </Link>
               <Button onClick={onLogoutHandler}>Logout</Button>
             </div>
           ) : (
-            <div className={styles.buttons}>
+            <div>
               <Link to="/login">
                 <Button>Login</Button>
               </Link>
