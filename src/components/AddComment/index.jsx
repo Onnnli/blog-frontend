@@ -1,34 +1,57 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import { Avatar, Comment, Form, Input, Button } from 'antd';
+import { useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
-const Editor = ({ onChange, onSubmit, submitting, value }) => (
-  <>
-    <Form.Item>
-      <Input.TextArea rows={4} onChange={onChange} value={value} />
-    </Form.Item>
-    <Form.Item>
-      <Button
-        htmlType="submit"
-        loading={submitting}
-        onClick={onSubmit}
-        type="primary"
-      >
-        Add Comment
-      </Button>
-    </Form.Item>
-  </>
-);
+import { fetchAddComments } from '../../redux/slices/comments';
 
-const AddComment = () => {
-  const onChangeHandler = () => {};
-  const onSubmitHandler = () => {};
+const Editor = ({ onSubmit, value, onChange }) => {
+  const { isLoading } = useSelector((state) => state.comments);
+
+  return (
+    <>
+      <Form.Item>
+        <Input.TextArea value={value} onChange={onChange} rows={4} />
+      </Form.Item>
+      <Form.Item>
+        <Button
+          htmlType="submit"
+          loading={isLoading}
+          type="primary"
+          onClick={onSubmit}
+        >
+          Add Comment
+        </Button>
+      </Form.Item>
+    </>
+  );
+};
+
+const AddComment = ({ user }) => {
+  const { id } = useParams();
+  const dispatch = useDispatch();
+  const [comment, setComment] = useState('');
+
+  const onChangeHandler = useCallback((e) => {
+    setComment(e.target.value);
+  }, []);
+
+  const onSubmitHandler = useCallback(async () => {
+    await dispatch(fetchAddComments({ id, comment })).then(() => {
+      setComment('');
+    });
+  }, [comment]);
 
   return (
     <Comment
-      avatar={
-        <Avatar src="https://joeschmoe.io/api/v1/random" alt="Han Solo" />
+      avatar={<Avatar src={user?.avatarUrl} alt="avatar" />}
+      content={
+        <Editor
+          onChange={onChangeHandler}
+          value={comment}
+          onSubmit={onSubmitHandler}
+        />
       }
-      content={<Editor onChange={onChangeHandler} onSubmit={onSubmitHandler} />}
     />
   );
 };
