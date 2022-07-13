@@ -3,7 +3,7 @@ import { Avatar, Comment, Form, Input, Button } from 'antd';
 import { useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
-import { fetchAddComments } from '../../../redux/slices/comments';
+import { commentActions } from '../../../redux/slices/commentSlice/commentActions';
 
 const AddComment = ({ user }) => {
   const { id } = useParams();
@@ -15,9 +15,11 @@ const AddComment = ({ user }) => {
   }, []);
 
   const onSubmitHandler = useCallback(async () => {
-    await dispatch(fetchAddComments({ id, comment })).then(() => {
-      setComment('');
-    });
+    await dispatch(commentActions.fetchAddComments({ id, comment })).then(
+      () => {
+        setComment('');
+      }
+    );
   }, [comment]);
 
   return (

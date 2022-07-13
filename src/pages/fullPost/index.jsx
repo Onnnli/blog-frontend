@@ -7,8 +7,8 @@ import { Skeleton } from 'antd';
 import Post from '../../components/posts/post';
 import AddComment from '../../components/comments/addComment';
 import Comments from '../../components/comments';
-import { fetchComments } from '../../redux/slices/comments';
 import axios from '../../axios';
+import { commentActions } from '../../redux/slices/commentSlice/commentActions';
 
 const FullPost = () => {
   const { id } = useParams();
@@ -23,7 +23,7 @@ const FullPost = () => {
       setLoading(false);
     });
 
-    dispatch(fetchComments(id));
+    dispatch(commentActions.fetchComments(id));
   }, []);
 
   return (
