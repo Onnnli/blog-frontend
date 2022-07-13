@@ -33,7 +33,7 @@ const Uploader = ({ value, onChange }) => {
     >
       {value ? (
         <img
-          src={`http://localhost:3003${value}`}
+          src={value}
           alt="avatar"
           style={{
             width: '100%',

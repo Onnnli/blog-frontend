@@ -37,7 +37,7 @@ export const AddPost = ({ isEditing = false }) => {
       title,
       tags: tags.split(','),
       text,
-      imageUrl: imageUrl ? `http://localhost:3003${imageUrl}` : '',
+      imageUrl: imageUrl || '',
     });
 
     navigate(`/posts/${data._id}`);
@@ -48,7 +48,7 @@ export const AddPost = ({ isEditing = false }) => {
       title,
       tags: tags.split(','),
       text,
-      imageUrl: imageUrl ? `http://localhost:3003${imageUrl}` : '',
+      imageUrl: imageUrl || '',
     });
 
     navigate(`/posts/${id}`);
