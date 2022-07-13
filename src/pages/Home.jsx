@@ -1,7 +1,11 @@
 import React, { useEffect, useMemo } from 'react';
 import { Layout, Tabs } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchPosts, fetchTags } from '../redux/slices/posts';
+import {
+  fetchPopularPosts,
+  fetchPosts,
+  fetchTags,
+} from '../redux/slices/posts';
 import Post from '../components/Post';
 import Sider from '../components/Sider';
 import Tags from '../components/Tags';
@@ -19,11 +23,16 @@ export const Home = () => {
     dispatch(fetchTags());
   }, []);
 
-  const onChange = () => {};
-
+  const onChange = (key) => {
+    if (!key) {
+      dispatch(fetchPopularPosts());
+    } else {
+      dispatch(fetchPosts());
+    }
+  };
   return (
     <Tabs defaultActiveKey="1" onChange={onChange}>
-      <Tabs.TabPane tab="New" key="1">
+      <Tabs.TabPane tab="New" key={1}>
         <Layout>
           <Layout.Content>
             {posts?.isLoading
@@ -44,8 +53,26 @@ export const Home = () => {
           </Sider>
         </Layout>
       </Tabs.TabPane>
-      <Tabs.TabPane tab="Popular" key="2">
-        Content of Tab Pane 2
+      <Tabs.TabPane tab="Popular" key={0}>
+        <Layout>
+          <Layout.Content>
+            {posts?.isLoading
+              ? [...Array(5)]?.map((_, index) => (
+                  <Post key={index} isLoading={posts.isLoading} />
+                ))
+              : postsMemo?.map((post, index) => (
+                  <Post
+                    key={index}
+                    {...post}
+                    commentsCount={post?.comments?.length}
+                    isEditable={user?._id === post?.user?._id}
+                  />
+                ))}
+          </Layout.Content>
+          <Sider theme="light">
+            <Tags items={tagsMemo} isLoading={tags.isLoading} />
+          </Sider>
+        </Layout>
       </Tabs.TabPane>
     </Tabs>
   );

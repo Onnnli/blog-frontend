@@ -22,6 +22,19 @@ export const fetchPosts = createAsyncThunk('posts/fetchPosts', async () => {
   }
 });
 
+export const fetchPopularPosts = createAsyncThunk(
+  'posts/fetchPopularPosts',
+  async () => {
+    try {
+      const { data } = await axios.get('/posts/popular');
+
+      return data;
+    } catch (e) {
+      console.log(e, 'error');
+    }
+  }
+);
+
 export const fetchRemovePost = createAsyncThunk(
   'posts/fetchRemovePost',
   // eslint-disable-next-line no-return-await
@@ -52,6 +65,18 @@ const postsSlice = createSlice({
       state.posts.isLoading = false;
     },
     [fetchPosts.rejected]: (state) => {
+      state.posts.items = [];
+      state.posts.isLoading = false;
+    },
+    [fetchPopularPosts.pending]: (state) => {
+      state.posts.items = [];
+      state.posts.isLoading = true;
+    },
+    [fetchPopularPosts.fulfilled]: (state, action) => {
+      state.posts.items = action.payload;
+      state.posts.isLoading = false;
+    },
+    [fetchPopularPosts.rejected]: (state) => {
       state.posts.items = [];
       state.posts.isLoading = false;
     },
