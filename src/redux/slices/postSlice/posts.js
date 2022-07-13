@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from '../../axios';
+import axios from '../../../axios';
+import { postActionTypes } from './postActionTypes';
 
 const initialState = {
   posts: {
@@ -12,17 +13,20 @@ const initialState = {
   },
 };
 
-export const fetchPosts = createAsyncThunk('posts/fetchPosts', async () => {
-  try {
-    const { data } = await axios.get('/posts');
+export const fetchPosts = createAsyncThunk(
+  postActionTypes.GET_POSTS,
+  async () => {
+    try {
+      const { data } = await axios.get('/posts');
 
-    return data;
-  } catch (e) {
-    console.log(e, 'error');
+      return data;
+    } catch (e) {
+      console.log(e, 'error');
+    }
   }
-});
+);
 export const fetchPostsByTag = createAsyncThunk(
-  'posts/fetchPostsByTag',
+  postActionTypes.GET_POSTS_BY_TAG,
   async (id) => {
     try {
       const { data } = await axios.get(`/tags/${id}`);
@@ -35,7 +39,7 @@ export const fetchPostsByTag = createAsyncThunk(
 );
 
 export const fetchPopularPosts = createAsyncThunk(
-  'posts/fetchPopularPosts',
+  postActionTypes.GET_POPULAR_POST,
   async () => {
     try {
       const { data } = await axios.get('/posts/popular');
@@ -48,20 +52,23 @@ export const fetchPopularPosts = createAsyncThunk(
 );
 
 export const fetchRemovePost = createAsyncThunk(
-  'posts/fetchRemovePost',
+  postActionTypes.REMOVE_POST,
   // eslint-disable-next-line no-return-await
   async (id) => await axios.delete(`/posts/${id}`)
 );
 
-export const fetchTags = createAsyncThunk('posts/fetchTags', async () => {
-  try {
-    const { data } = await axios.get('/posts/tags');
+export const fetchTags = createAsyncThunk(
+  postActionTypes.GET_TAGS,
+  async () => {
+    try {
+      const { data } = await axios.get('/posts/tags');
 
-    return data;
-  } catch (e) {
-    console.log(e, 'error');
+      return data;
+    } catch (e) {
+      console.log(e, 'error');
+    }
   }
-});
+);
 
 const postsSlice = createSlice({
   name: 'posts',

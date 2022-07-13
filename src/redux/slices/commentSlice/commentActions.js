@@ -1,13 +1,14 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+
 import { commentActionTypes } from './commentActionTypes';
-import axios from '../../../axios';
+import { postService } from '../../../services/post.service';
 
 export const commentActions = {
   fetchComments: createAsyncThunk(
     commentActionTypes.GET_COMMENT,
     async (id) => {
       try {
-        const { data } = await axios.get(`/posts/${id}/comments`);
+        const { data } = await postService.getComments(id);
 
         return data;
       } catch (e) {
@@ -20,9 +21,7 @@ export const commentActions = {
     commentActionTypes.ADD_COMMENT,
     async ({ id, comment }) => {
       try {
-        const { data } = await axios.post(`posts/${id}/add-comment`, {
-          text: comment,
-        });
+        const { data } = await postService.createComment(id, comment);
 
         return data;
       } catch (e) {

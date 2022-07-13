@@ -11,7 +11,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import { UserInfo } from '../../userInfo';
-import { fetchRemovePost } from '../../../redux/slices/posts';
+import { fetchRemovePost } from '../../../redux/slices/postSlice/posts';
 
 import styles from './Post.module.scss';
 

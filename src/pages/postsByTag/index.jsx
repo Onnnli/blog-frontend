@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Posts from '../../components/posts';
-import { fetchPostsByTag } from '../../redux/slices/posts';
+import { fetchPostsByTag } from '../../redux/slices/postSlice/posts';
 
 const PostsByTag = () => {
   const { id } = useParams();

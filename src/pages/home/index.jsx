@@ -6,7 +6,7 @@ import {
   fetchPopularPosts,
   fetchPosts,
   fetchTags,
-} from '../../redux/slices/posts';
+} from '../../redux/slices/postSlice/posts';
 import Posts from '../../components/posts';
 
 const Home = () => {
