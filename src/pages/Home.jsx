@@ -1,20 +1,17 @@
 import React, { useEffect, useMemo } from 'react';
-import { Layout, Tabs } from 'antd';
+import { Tabs } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
+
 import {
   fetchPopularPosts,
   fetchPosts,
   fetchTags,
 } from '../redux/slices/posts';
-import Post from '../components/Post';
-import Sider from '../components/Sider';
-import Tags from '../components/Tags';
+import Posts from '../components/posts';
 
 export const Home = () => {
   const dispatch = useDispatch();
   const { posts, tags } = useSelector((state) => state.posts);
-  const { user } = useSelector((state) => state.auth);
-
   const postsMemo = useMemo(() => posts.items, [posts]);
   const tagsMemo = useMemo(() => tags.items, [tags]);
 
@@ -24,55 +21,29 @@ export const Home = () => {
   }, []);
 
   const onChange = (key) => {
-    if (!key) {
-      dispatch(fetchPopularPosts());
-    } else {
-      dispatch(fetchPosts());
+    switch (key) {
+      case 'popular':
+        dispatch(fetchPopularPosts());
+        break;
+      case 'new':
+        dispatch(fetchPosts());
+        break;
+      default:
+        break;
     }
   };
+
   return (
     <Tabs defaultActiveKey="1" onChange={onChange}>
-      <Tabs.TabPane tab="New" key={1}>
-        <Layout>
-          <Layout.Content>
-            {posts?.isLoading
-              ? [...Array(5)]?.map((_, index) => (
-                  <Post key={index} isLoading={posts.isLoading} />
-                ))
-              : postsMemo?.map((post, index) => (
-                  <Post
-                    key={index}
-                    {...post}
-                    commentsCount={post?.comments?.length}
-                    isEditable={user?._id === post?.user?._id}
-                  />
-                ))}
-          </Layout.Content>
-          <Sider theme="light">
-            <Tags items={tagsMemo} isLoading={tags.isLoading} />
-          </Sider>
-        </Layout>
+      <Tabs.TabPane tab="New" key="new">
+        <Posts posts={postsMemo} tags={tagsMemo} />
       </Tabs.TabPane>
-      <Tabs.TabPane tab="Popular" key={0}>
-        <Layout>
-          <Layout.Content>
-            {posts?.isLoading
-              ? [...Array(5)]?.map((_, index) => (
-                  <Post key={index} isLoading={posts.isLoading} />
-                ))
-              : postsMemo?.map((post, index) => (
-                  <Post
-                    key={index}
-                    {...post}
-                    commentsCount={post?.comments?.length}
-                    isEditable={user?._id === post?.user?._id}
-                  />
-                ))}
-          </Layout.Content>
-          <Sider theme="light">
-            <Tags items={tagsMemo} isLoading={tags.isLoading} />
-          </Sider>
-        </Layout>
+      <Tabs.TabPane tab="Popular" key="popular">
+        <Posts
+          posts={postsMemo}
+          tags={tagsMemo}
+          isLoadingPosts={posts.isLoading}
+        />
       </Tabs.TabPane>
     </Tabs>
   );

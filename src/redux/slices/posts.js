@@ -4,11 +4,11 @@ import axios from '../../axios';
 const initialState = {
   posts: {
     items: [],
-    isLoading: true,
+    isLoading: false,
   },
   tags: {
     items: [],
-    isLoading: true,
+    isLoading: false,
   },
 };
 
@@ -21,6 +21,18 @@ export const fetchPosts = createAsyncThunk('posts/fetchPosts', async () => {
     console.log(e, 'error');
   }
 });
+export const fetchPostsByTag = createAsyncThunk(
+  'posts/fetchPostsByTag',
+  async (id) => {
+    try {
+      const { data } = await axios.get(`/tags/${id}`);
+
+      return data;
+    } catch (e) {
+      console.log(e, 'error');
+    }
+  }
+);
 
 export const fetchPopularPosts = createAsyncThunk(
   'posts/fetchPopularPosts',
@@ -65,6 +77,18 @@ const postsSlice = createSlice({
       state.posts.isLoading = false;
     },
     [fetchPosts.rejected]: (state) => {
+      state.posts.items = [];
+      state.posts.isLoading = false;
+    },
+    [fetchPostsByTag.pending]: (state) => {
+      state.posts.items = [];
+      state.posts.isLoading = true;
+    },
+    [fetchPostsByTag.fulfilled]: (state, action) => {
+      state.posts.items = action.payload;
+      state.posts.isLoading = false;
+    },
+    [fetchPostsByTag.rejected]: (state) => {
       state.posts.items = [];
       state.posts.isLoading = false;
     },

@@ -1,12 +1,14 @@
 import React from 'react';
 import { Divider, List, Skeleton, Typography } from 'antd';
 import { BorderlessTableOutlined } from '@ant-design/icons';
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
-import styles from './Tags.module.scss';
+const Tags = ({ items }) => {
+  const { tags } = useSelector((state) => state.posts);
 
-const Tags = ({ items, isLoading = true }) => (
-  <div className={styles.wrapper}>
-    <Skeleton loading={isLoading} active>
+  return (
+    <Skeleton loading={tags.isLoading} active>
       <div>
         <Typography.Title level={4}>Tags</Typography.Title>
         <Divider />
@@ -14,15 +16,15 @@ const Tags = ({ items, isLoading = true }) => (
       <List
         dataSource={items}
         renderItem={(item) => (
-          <Typography.Link href={`/tags/${item}`}>
+          <Link to={`/tags/${item}`}>
             <List.Item>
               <BorderlessTableOutlined /> {item}
             </List.Item>
-          </Typography.Link>
+          </Link>
         )}
       />
     </Skeleton>
-  </div>
-);
+  );
+};
 
 export default Tags;
