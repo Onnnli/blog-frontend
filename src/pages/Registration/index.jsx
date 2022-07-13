@@ -6,6 +6,7 @@ import { Navigate } from 'react-router-dom';
 import { fetchRegistration, selectIsAuth } from '../../redux/slices/auth';
 
 import styles from './Registration.module.scss';
+import Uploader from '../../components/Uploader';
 
 export const Registration = () => {
   const dispatch = useDispatch();
@@ -14,7 +15,7 @@ export const Registration = () => {
   const onFinish = async (values) => {
     const { payload } = await dispatch(fetchRegistration(values));
 
-    if (payload.token) {
+    if (payload?.token) {
       localStorage.setItem('token', payload.token);
     }
   };
@@ -26,6 +27,9 @@ export const Registration = () => {
   return (
     <div className={styles.root}>
       <Form name="basic" onFinish={onFinish} autoComplete="off">
+        <Form.Item name="avatarUrl">
+          <Uploader />
+        </Form.Item>
         <Form.Item
           label="full name"
           name="fullName"
