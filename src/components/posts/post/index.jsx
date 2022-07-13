@@ -10,8 +10,8 @@ import { Card, Skeleton } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
-import { UserInfo } from '../UserInfo';
-import { fetchRemovePost } from '../../redux/slices/posts';
+import { UserInfo } from '../../userInfo';
+import { fetchRemovePost } from '../../../redux/slices/posts';
 
 import styles from './Post.module.scss';
 

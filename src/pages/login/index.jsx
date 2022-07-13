@@ -5,9 +5,7 @@ import { Navigate } from 'react-router-dom';
 
 import { fetchLogin, selectIsAuth } from '../../redux/slices/auth';
 
-import styles from './Login.module.scss';
-
-export const Login = () => {
+const Login = () => {
   const dispatch = useDispatch();
   const isAuth = useSelector(selectIsAuth);
 
@@ -26,7 +24,7 @@ export const Login = () => {
   }
 
   return (
-    <div className={styles.root}>
+    <div>
       <Form name="basic" onFinish={onFinish} autoComplete="off">
         <Form.Item
           label="Email"
@@ -53,3 +51,5 @@ export const Login = () => {
     </div>
   );
 };
+
+export default Login;

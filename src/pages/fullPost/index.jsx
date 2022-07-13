@@ -4,13 +4,13 @@ import { useSelector, useDispatch } from 'react-redux';
 import ReactMarkdown from 'react-markdown';
 import { Skeleton } from 'antd';
 
-import Post from '../components/Post';
-import AddComment from '../components/AddComment';
-import CommentsBlock from '../components/CommentsBlock';
-import axios from '../axios';
-import { fetchComments } from '../redux/slices/comments';
+import Post from '../../components/posts/post';
+import AddComment from '../../components/comments/addComment';
+import Comments from '../../components/comments';
+import { fetchComments } from '../../redux/slices/comments';
+import axios from '../../axios';
 
-export const FullPost = () => {
+const FullPost = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const [post, setPost] = useState();
@@ -38,10 +38,12 @@ export const FullPost = () => {
         <ReactMarkdown>{post?.text}</ReactMarkdown>
       </Post>
       <Skeleton loading={isLoading}>
-        <CommentsBlock isLoading={false}>
+        <Comments isLoading={false}>
           <AddComment user={user} />
-        </CommentsBlock>
+        </Comments>
       </Skeleton>
     </>
   );
 };
+
+export default FullPost;

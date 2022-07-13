@@ -4,11 +4,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 
 import { fetchRegistration, selectIsAuth } from '../../redux/slices/auth';
+import Uploader from '../../components/uploader';
 
-import styles from './Registration.module.scss';
-import Uploader from '../../components/Uploader';
-
-export const Registration = () => {
+const Registration = () => {
   const dispatch = useDispatch();
   const isAuth = useSelector(selectIsAuth);
 
@@ -25,7 +23,7 @@ export const Registration = () => {
   }
 
   return (
-    <div className={styles.root}>
+    <div>
       <Form name="basic" onFinish={onFinish} autoComplete="off">
         <Form.Item name="avatarUrl">
           <Uploader />
@@ -42,7 +40,6 @@ export const Registration = () => {
         >
           <Input />
         </Form.Item>
-
         <Form.Item
           label="email"
           name="email"
@@ -55,7 +52,6 @@ export const Registration = () => {
         >
           <Input />
         </Form.Item>
-
         <Form.Item
           label="password"
           name="password"
@@ -68,7 +64,6 @@ export const Registration = () => {
         >
           <Input.Password />
         </Form.Item>
-
         <Form.Item>
           <Button type="primary" htmlType="submit">
             Submit
@@ -78,3 +73,5 @@ export const Registration = () => {
     </div>
   );
 };
+
+export default Registration;

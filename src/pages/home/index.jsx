@@ -6,10 +6,10 @@ import {
   fetchPopularPosts,
   fetchPosts,
   fetchTags,
-} from '../redux/slices/posts';
-import Posts from '../components/posts';
+} from '../../redux/slices/posts';
+import Posts from '../../components/posts';
 
-export const Home = () => {
+const Home = () => {
   const dispatch = useDispatch();
   const { posts, tags } = useSelector((state) => state.posts);
   const postsMemo = useMemo(() => posts.items, [posts]);
@@ -48,3 +48,5 @@ export const Home = () => {
     </Tabs>
   );
 };
+
+export default Home;

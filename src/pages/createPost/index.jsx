@@ -3,13 +3,12 @@ import { Button, Input } from 'antd';
 import SimpleMDE from 'react-simplemde-editor';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import Uploader from '../../components/Uploader';
+import Uploader from '../../components/uploader';
 import axios from '../../axios';
 
 import 'easymde/dist/easymde.min.css';
-import styles from './AddPost.module.scss';
 
-export const AddPost = ({ isEditing = false }) => {
+const CreatePost = ({ isEditing = false }) => {
   const [text, setText] = useState('');
   const [tags, setTags] = useState('');
   const [title, setTitle] = useState('');
@@ -25,6 +24,11 @@ export const AddPost = ({ isEditing = false }) => {
         setTitle(data.title);
         setImageUrl(data.imageUrl);
       });
+    } else {
+      setTags('');
+      setText('');
+      setTitle('');
+      setImageUrl('');
     }
   }, [isEditing]);
 
@@ -70,27 +74,20 @@ export const AddPost = ({ isEditing = false }) => {
   );
 
   return (
-    <div style={{ backgroundColor: 'white' }}>
+    <div>
       <Uploader value={imageUrl} onChange={setImageUrl} />
       <Input
-        classes={{ root: styles.title }}
         value={title}
         onChange={(e) => setTitle(e.target.value)}
         placeholder="Article title..."
       />
       <Input
-        classes={{ root: styles.tags }}
         value={tags}
         onChange={(e) => setTags(e.target.value)}
         placeholder="Tags"
       />
-      <SimpleMDE
-        className={styles.editor}
-        value={text}
-        onChange={onChange}
-        options={options}
-      />
-      <div className={styles.buttons}>
+      <SimpleMDE value={text} onChange={onChange} options={options} />
+      <div>
         {isEditing ? (
           <Button onClick={onSaveHandler}>Save</Button>
         ) : (
@@ -101,3 +98,5 @@ export const AddPost = ({ isEditing = false }) => {
     </div>
   );
 };
+
+export default CreatePost;

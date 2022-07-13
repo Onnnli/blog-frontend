@@ -2,9 +2,9 @@ import React from 'react';
 import { Layout } from 'antd';
 import { useSelector } from 'react-redux';
 
-import Post from '../Post';
+import Post from './post';
 import Sider from '../Sider';
-import Tags from '../Tags';
+import Tags from '../tags';
 
 const Posts = ({ posts, tags, isLoadingPosts }) => {
   const { user } = useSelector((state) => state.auth);

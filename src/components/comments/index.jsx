@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import { Skeleton, Comment, Avatar, Typography, Divider } from 'antd';
 import { useSelector } from 'react-redux';
 
-const CommentsBlock = ({ isLoading = true, children }) => {
+const Comments = ({ isLoading = true, children }) => {
   const { comments } = useSelector((state) => state.comments);
 
   const memoComm = useMemo(() => comments, [comments]);
@@ -28,4 +28,4 @@ const CommentsBlock = ({ isLoading = true, children }) => {
   );
 };
 
-export default CommentsBlock;
+export default Comments;

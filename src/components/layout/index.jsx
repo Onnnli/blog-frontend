@@ -1,6 +1,6 @@
 import React from 'react';
-import Header from '../Header';
-import Container from './Container';
+import Header from '../header';
+import Container from './container';
 
 import styles from './Layout.module.scss';
 

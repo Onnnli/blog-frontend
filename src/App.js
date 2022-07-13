@@ -2,11 +2,15 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Routes, Route } from 'react-router-dom';
 
-import { AddPost, FullPost, Home, Login, Registration } from './pages';
 import { fetchUser } from './redux/slices/auth';
-import Layout from './components/Layout';
+import Layout from './components/layout';
 import PrivateRoute from './components/routers/PrivateRoute';
+import Home from './pages/home';
+import Login from './pages/login';
+import Registration from './pages/registration';
+import FullPost from './pages/fullPost';
 import PostsByTag from './pages/postsByTag';
+import CreatePost from './pages/createPost';
 
 import 'antd/dist/antd.min.css';
 
@@ -30,7 +34,7 @@ const App = () => {
           exact
           element={
             <PrivateRoute>
-              <AddPost isEditing />
+              <CreatePost isEditing />
             </PrivateRoute>
           }
         />
@@ -39,7 +43,7 @@ const App = () => {
           path="/post/create"
           element={
             <PrivateRoute>
-              <AddPost />
+              <CreatePost />
             </PrivateRoute>
           }
         />
