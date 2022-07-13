@@ -3,15 +3,16 @@ import { Button, Form, Input } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 
-import { fetchRegistration, selectIsAuth } from '../../redux/slices/auth';
+import { selectIsAuth } from '../../redux/slices/authSlice/auth';
 import Uploader from '../../components/uploader';
+import { authActions } from '../../redux/slices/authSlice/authActions';
 
 const Registration = () => {
   const dispatch = useDispatch();
   const isAuth = useSelector(selectIsAuth);
 
   const onFinish = async (values) => {
-    const { payload } = await dispatch(fetchRegistration(values));
+    const { payload } = await dispatch(authActions.fetchRegistration(values));
 
     if (payload?.token) {
       localStorage.setItem('token', payload.token);

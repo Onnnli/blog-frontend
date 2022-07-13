@@ -3,14 +3,15 @@ import { Form, Input, Button } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 
-import { fetchLogin, selectIsAuth } from '../../redux/slices/auth';
+import { selectIsAuth } from '../../redux/slices/authSlice/auth';
+import { authActions } from '../../redux/slices/authSlice/authActions';
 
 const Login = () => {
   const dispatch = useDispatch();
   const isAuth = useSelector(selectIsAuth);
 
   const onFinish = async (values) => {
-    const { payload } = await dispatch(fetchLogin(values));
+    const { payload } = await dispatch(authActions.fetchLogin(values));
 
     if (payload.token) {
       localStorage.setItem('token', payload.token);
@@ -41,7 +42,6 @@ const Login = () => {
         >
           <Input.Password />
         </Form.Item>
-
         <Form.Item>
           <Button type="primary" htmlType="submit">
             Submit

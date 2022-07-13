@@ -1,6 +1,6 @@
 import { useLocation, Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { selectIsAuth } from '../../redux/slices/auth';
+import { selectIsAuth } from '../../redux/slices/authSlice/auth';
 
 const PrivateRoute = ({ children }) => {
   const isAuth = useSelector(selectIsAuth);

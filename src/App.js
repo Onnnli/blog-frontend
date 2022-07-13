@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Routes, Route } from 'react-router-dom';
 
-import { fetchUser } from './redux/slices/auth';
 import Layout from './components/layout';
 import PrivateRoute from './components/routers/PrivateRoute';
 import Home from './pages/home';
@@ -11,6 +10,7 @@ import Registration from './pages/registration';
 import FullPost from './pages/fullPost';
 import PostsByTag from './pages/postsByTag';
 import CreatePost from './pages/createPost';
+import { authActions } from './redux/slices/authSlice/authActions';
 
 import 'antd/dist/antd.min.css';
 
@@ -18,7 +18,7 @@ const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchUser());
+    dispatch(authActions.fetchUser());
   }, []);
 
   return (

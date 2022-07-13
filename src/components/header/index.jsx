@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Container from '../layout/container';
-import { logout, selectIsAuth } from '../../redux/slices/auth';
+import { logout, selectIsAuth } from '../../redux/slices/authSlice/auth';
 
 const Header = () => {
   const dispatch = useDispatch();
