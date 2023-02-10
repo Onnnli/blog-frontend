@@ -13,7 +13,7 @@ import { useDispatch } from 'react-redux';
 import { UserInfo } from '../../userInfo';
 import { fetchRemovePost } from '../../../redux/slices/postSlice/posts';
 
-import styles from './Post.module.scss';
+import styles from './styles.module.scss';
 
 const Post = ({
   _id,

@@ -37,11 +37,13 @@ const FullPost = () => {
       >
         <ReactMarkdown>{post?.text}</ReactMarkdown>
       </Post>
-      <Skeleton loading={isLoading}>
-        <Comments isLoading={false}>
-          <AddComment user={user} />
-        </Comments>
-      </Skeleton>
+      {user && (
+        <Skeleton loading={isLoading}>
+          <Comments isLoading={false}>
+            <AddComment user={user} />
+          </Comments>
+        </Skeleton>
+        )}
     </>
   );
 };
